@@ -7,3 +7,13 @@ function get_grid_size($input_len)
     }
     return $size;
 }
+
+function get_x($pos, $size)
+{
+    return floor($pos / $size);
+}
+
+function get_y($pos, $size)
+{
+    return $pos - get_x($pos, $size) * $size;
+}
