@@ -17,3 +17,8 @@ function get_y($pos, $size)
 {
     return $pos - get_x($pos, $size) * $size;
 }
+
+function get_pos($x, $y, $size)
+{
+    return $x * $size + $y;
+}
