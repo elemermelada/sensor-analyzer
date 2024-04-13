@@ -3,6 +3,8 @@
 require __DIR__ . '/util.php';
 
 $input = $argv[1];
-$input_len = strlen($input);
-echo $input_len . "\n";
-echo get_grid_size($input_len);
+$grid = new Grid($input);
+var_dump($grid->is_cell_active(0, 0));
+var_dump($grid->is_cell_active(0, 1));
+var_dump($grid->is_cell_active(1, 0));
+var_dump($grid->is_cell_active(1, 1));
