@@ -10,7 +10,7 @@ class Grid
         $this->set_grid_size(strlen($input));
     }
 
-    function set_grid_size($input_len)
+    function set_grid_size($input_len):void
     {
         $size = sqrt($input_len);
         if ($input_len - floor($size) ** 2 != 0) {
@@ -21,17 +21,17 @@ class Grid
 
     // Positioning stuff
 
-    function get_x($pos)
+    function get_x($pos):int
     {
         return floor($pos / $this->size);
     }
 
-    function get_y($pos)
+    function get_y($pos):int
     {
         return $pos - $this->get_x($pos) * $this->size;
     }
 
-    function get_pos($x, $y)
+    function get_pos($x, $y):int
     {
         return $x * $this->size + $y;
     }
