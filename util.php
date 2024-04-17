@@ -1,6 +1,9 @@
 <?php
 const INACTIVE = 0;
 const ACTIVE = 1;
+const H_TILE = 2;
+const V_TILE = 3;
+const S_TILE = 4;
 
 class Grid
 {
@@ -66,5 +69,59 @@ class Grid
         if ($val < 0) return false;   // If value is invalid, return false
 
         return $val == ACTIVE;
+    }
+
+    // TILES
+    // Vertical
+    function v_tile_fits(int $x, int $y): bool
+    {
+        if (!$this->is_cell_active($x, $y)) return false;
+        if (!$this->is_cell_active($x + 1, $y)) return false;
+        if (!$this->is_cell_active($x + 2, $y)) return false;
+        return true;
+    }
+
+    function draw_v_tile(int $x, int $y): void
+    {
+        if (!$this->v_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid V_TILE");
+        $this->set_value($x, $y, V_TILE);
+        $this->set_value($x + 1, $y, V_TILE);
+        $this->set_value($x + 2, $y, V_TILE);
+    }
+
+    // Horizontal
+    function h_tile_fits(int $x, int $y): bool
+    {
+        if (!$this->is_cell_active($x, $y)) return false;
+        if (!$this->is_cell_active($x, $y + 1)) return false;
+        if (!$this->is_cell_active($x, $y + 2)) return false;
+        return true;
+    }
+
+    function draw_h_tile(int $x, int $y): void
+    {
+        if (!$this->h_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid H_TILE");
+        $this->set_value($x, $y, H_TILE);
+        $this->set_value($x, $y + 1, H_TILE);
+        $this->set_value($x, $y + 2, H_TILE);
+    }
+
+    // Square
+    function s_tile_fits(int $x, int $y): bool
+    {
+        if (!$this->is_cell_active($x, $y)) return false;
+        if (!$this->is_cell_active($x, $y + 1)) return false;
+        if (!$this->is_cell_active($x + 1, $y)) return false;
+        if (!$this->is_cell_active($x + 1, $y + 1)) return false;
+        return true;
+    }
+
+    function draw_s_tile(int $x, int $y): void
+    {
+        if (!$this->s_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid S_TILE");
+        $this->set_value($x, $y, S_TILE);
+        $this->set_value($x, $y + 1, S_TILE);
+        $this->set_value($x + 1, $y, S_TILE);
+        $this->set_value($x + 1, $y + 1, S_TILE);
     }
 }
