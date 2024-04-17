@@ -146,4 +146,70 @@ class Grid
 
         return [$defective_cells, $total_possible_tiles];
     }
+
+    function iterate_fwc()
+    {
+        if (substr_count($this->input, (string)ACTIVE) == 0) return 0;
+
+        $best_fit = [$this->size ** 2 + 1, -1];
+        $best_i = -1;
+        $best_j = -1;
+        $best_tile = -1;
+
+        for ($i = 0; $i < $this->size; $i++) {
+            for ($j = 0; $j < $this->size; $j++) {
+                if (!$this->is_cell_active($i, $j)) continue;
+                if ($this->v_tile_fits($i, $j)) {
+                    $support_grid = new Grid($this->input);
+                    $support_grid->draw_v_tile($i, $j);
+                    $new_entropy = $support_grid->current_entropy();
+
+                    if ($new_entropy[0] < $best_fit[0]) {
+                        $best_fit = $new_entropy;
+                        $best_i = $i;
+                        $best_j = $j;
+                        $best_tile = V_TILE;
+                    }
+                }
+                if ($this->h_tile_fits($i, $j)) {
+                    $support_grid = new Grid($this->input);
+                    $support_grid->draw_h_tile($i, $j);
+                    $new_entropy = $support_grid->current_entropy();
+
+                    if ($new_entropy[0] < $best_fit[0]) {
+                        $best_fit = $new_entropy;
+                        $best_i = $i;
+                        $best_j = $j;
+                        $best_tile = H_TILE;
+                    }
+                }
+                if ($this->s_tile_fits($i, $j)) {
+                    $support_grid = new Grid($this->input);
+                    $support_grid->draw_s_tile($i, $j);
+                    $new_entropy = $support_grid->current_entropy();
+
+                    if ($new_entropy[0] < $best_fit[0]) {
+                        $best_fit = $new_entropy;
+                        $best_i = $i;
+                        $best_j = $j;
+                        $best_tile = S_TILE;
+                    }
+                }
+            }
+        }
+
+        switch ($best_tile) {
+            case V_TILE:
+                $this->draw_v_tile($best_i, $best_j);
+                return 1;
+            case H_TILE:
+                $this->draw_h_tile($best_i, $best_j);
+                return 1;
+            case S_TILE:
+                $this->draw_s_tile($best_i, $best_j);
+                return 1;
+            default:
+                return -1;
+        }
+    }
 }
