@@ -212,4 +212,17 @@ class Grid
                 return -1;
         }
     }
+
+    function apply_fwc()
+    {
+        $count = 0;
+        while (true) {
+            $ec = $this->iterate_fwc();
+            if ($ec < 1) {
+                echo $count;
+                return;
+            }
+            $count++;
+        }
+    }
 }
