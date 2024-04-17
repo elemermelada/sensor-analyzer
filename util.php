@@ -9,7 +9,6 @@ class Grid
 {
 
     // INITIALIZE
-
     public $input = "";
     public $size = 0;
 
@@ -29,7 +28,6 @@ class Grid
     }
 
     // POSITIONING
-
     function get_x(int $pos): int
     {
         return floor($pos / $this->size);
@@ -48,7 +46,6 @@ class Grid
     }
 
     // VALUE
-
     function get_value(int $x, int $y): int
     {
         $pos = $this->get_pos($x, $y);
@@ -83,7 +80,6 @@ class Grid
 
     function draw_v_tile(int $x, int $y): void
     {
-        if (!$this->v_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid V_TILE");
         $this->set_value($x, $y, V_TILE);
         $this->set_value($x + 1, $y, V_TILE);
         $this->set_value($x + 2, $y, V_TILE);
@@ -100,7 +96,6 @@ class Grid
 
     function draw_h_tile(int $x, int $y): void
     {
-        if (!$this->h_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid H_TILE");
         $this->set_value($x, $y, H_TILE);
         $this->set_value($x, $y + 1, H_TILE);
         $this->set_value($x, $y + 2, H_TILE);
@@ -118,7 +113,6 @@ class Grid
 
     function draw_s_tile(int $x, int $y): void
     {
-        if (!$this->s_tile_fits($x, $y)) throw new Exception("Fatal error: attempting to draw invalid S_TILE");
         $this->set_value($x, $y, S_TILE);
         $this->set_value($x, $y + 1, S_TILE);
         $this->set_value($x + 1, $y, S_TILE);
