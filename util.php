@@ -142,7 +142,6 @@ class Grid
                 }
             }
         }
-        var_dump($support_grid->input);
         $defective_cells = substr_count($support_grid->input, (string)ACTIVE);
 
         return [$defective_cells, $total_possible_tiles];
