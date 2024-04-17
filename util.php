@@ -14,17 +14,29 @@ class Grid
 
     function __construct(string $input)
     {
-        $this->input = $input;
-        $this->set_grid_size(strlen($input));
+        $this->set_size(strlen($input));
+        $this->set_input($input);
     }
 
-    function set_grid_size(int $input_len): void
+    function set_size(int $input_len): void
     {
         $size = sqrt($input_len);
         if ($input_len - floor($size) ** 2 != 0) {
             throw new Exception("Invalid input");  // Invalid input
         }
         $this->size = $size;
+    }
+
+    function set_input(string $input)
+    {
+        $this->input = $input;
+        for ($i = 0; $i < $this->size; $i++) {
+            if ($i % 2 == 0) continue;
+            for ($j = 0; $j < $this->size; $j++) {
+                $val = (int)$input[$this->get_pos($i, $j)];
+                $this->set_value($i, $this->size - 1 - $j, $val);
+            }
+        }
     }
 
     // POSITIONING
