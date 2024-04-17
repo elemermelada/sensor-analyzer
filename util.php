@@ -147,7 +147,7 @@ class Grid
         return [$defective_cells, $total_possible_tiles];
     }
 
-    function iterate_fwc()
+    function iterate_wfc()
     {
         if (substr_count($this->input, (string)ACTIVE) == 0) return 0;
 
@@ -213,14 +213,13 @@ class Grid
         }
     }
 
-    function apply_fwc()
+    function apply_wfc()
     {
         $count = 0;
         while (true) {
-            $ec = $this->iterate_fwc();
+            $ec = $this->iterate_wfc();
             if ($ec < 1) {
-                echo $count;
-                return;
+                return $count;
             }
             $count++;
         }
