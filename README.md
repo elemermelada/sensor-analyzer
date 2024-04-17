@@ -28,11 +28,19 @@ This means that, in every iteration:
 
 1.  Each possible next shape is found
 2.  For each of them, the _entropy_ is obtained
-3.  The shape with least entropy is selected
+3.  The shape resulting in the most entropy is selected
 
 The entropy is:
 
-- ~~Higher the higher the number of possible shapes~~
+- ~~Higher the higher the number of possible shapes~~ Could be implemented, testing needed.
 - Lower the higher the number of false positives is.
 
 This means that at every iteration the next shape chosen will minimize the number of false positives.
+
+### 4. Final notes
+
+AFAIC the code is not as efficient as it could be. PHP lies inside the _botching_ realm for me so not much consideration was put into using the best memory management practices.
+
+Moreover, scalability could be a problem since some algorithms rely on the fact that there are less than 10 possible cell states (currently 2+3=5). This could be fixed by omiting some `int` uses and retaining strings with extra symbols beyond `0-9`.
+
+Most of my efforts were put into designing the _wfc_ algorithm to solve the problem in question, but my next steps would involve better type definition and possibly splitting the `Grid` class into two.
