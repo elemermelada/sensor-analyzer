@@ -118,4 +118,33 @@ class Grid
         $this->set_value($x + 1, $y, S_TILE);
         $this->set_value($x + 1, $y + 1, S_TILE);
     }
+
+    // FUNCTION WAVE COLLAPSE
+    function current_entropy()
+    {
+        $support_grid = new Grid($this->input);
+        $total_possible_tiles = 0;
+
+        for ($i = 0; $i < $this->size; $i++) {
+            for ($j = 0; $j < $this->size; $j++) {
+                if (!$this->is_cell_active($i, $j)) continue;
+                if ($this->v_tile_fits($i, $j)) {
+                    $total_possible_tiles++;
+                    $support_grid->draw_v_tile($i, $j);
+                }
+                if ($this->h_tile_fits($i, $j)) {
+                    $total_possible_tiles++;
+                    $support_grid->draw_h_tile($i, $j);
+                }
+                if ($this->s_tile_fits($i, $j)) {
+                    $total_possible_tiles++;
+                    $support_grid->draw_s_tile($i, $j);
+                }
+            }
+        }
+        var_dump($support_grid->input);
+        $defective_cells = substr_count($support_grid->input, (string)ACTIVE);
+
+        return [$defective_cells, $total_possible_tiles];
+    }
 }
