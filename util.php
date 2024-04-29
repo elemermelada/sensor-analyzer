@@ -12,10 +12,10 @@ class Grid
     public $input = "";
     public $size = 0;
 
-    function __construct(string $input)
+    function __construct(string $input, bool $zigzag = false)
     {
         $this->set_size(strlen($input));
-        $this->set_input($input);
+        $this->set_input($input, $zigzag);
     }
 
     function set_size(int $input_len): void
@@ -27,9 +27,10 @@ class Grid
         $this->size = $size;
     }
 
-    function set_input(string $input)
+    function set_input(string $input, bool $zigzag = false)
     {
         $this->input = $input;
+        if (!$zigzag) return;
         for ($i = 0; $i < $this->size; $i++) {
             if ($i % 2 == 0) continue;
             for ($j = 0; $j < $this->size; $j++) {
